@@ -3,15 +3,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 
 <body>
 
 <div id="question"></div>
-
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
-    var myFile = "https://epeach.github.io/textFilesForAttention/";
-    document.getElementById("question").innerHTML = myFile.getElementById("q1").innerHTML;
+    var rand = Math.random() * 2;
+    if (rand > 1){
+        $( "#question" ).load( "https://epeach.github.io/textFilesForAttention/ #q1");
+    } else {
+        $( "#question" ).load( "https://epeach.github.io/textFilesForAttention/");
+    }
+    //var myFile = "textFilesForAttention/q1.txt";
+    //document.getElementById("question").innerHTML = myFile.getElementById("q1").innerHTML;
 </script>
 
 </body>

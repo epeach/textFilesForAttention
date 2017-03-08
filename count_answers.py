@@ -73,6 +73,7 @@ outw = [None,None,None,None]
 for i in range(4):
   outputf[i] = open("output"+str(i)+".csv","w")
   outw[i] = csv.writer(outputf[i], delimiter=',', quotechar='"')
+j=0
 for fn in fns:
   with open(fn, 'rb') as csvfile:
     outputreader = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -92,8 +93,11 @@ for fn in fns:
             quidx[int(row[idx].split("m")[1])] = idx
           elif row[idx].startswith("Answer.q"):
             anidx[int(row[idx].split("q")[1])] = idx
-        for i in range(4):
-          outw[i].writerow(row+["Correct","Self-rating"])
+
+        if j ==0:
+          for i in range(4):
+            outw[i].writerow(row+["Correct","Self-rating"])
+          j += 1
         if row[29] != "Answer.careful" or row[34] != "Answer.grouptype":
           print "formatting error"
         header= False
@@ -102,7 +106,6 @@ for fn in fns:
       sr = add_selfrating(row)
       while len(row) < leng:
         row.append("")
-
       outw[int(row[gpidx])].writerow(row+[ans,sr])
 for i in range(4):
   outputf[i].close()
@@ -132,7 +135,7 @@ print stats.f_oneway(selfr[0],selfr[1],selfr[2],selfr[3])
 
 fig, ax = plt.subplots()
 bar_width = 0.45
-'''
+
 opacity = 0.6
 error_config = {'ecolor': '0.1','elinewidth':2., 'capsize':5, 'capthick':2.}
 index = np.arange(4)/2.#[0,1,2,3]
@@ -165,4 +168,4 @@ plt.title('User Self-Rating in Attentiveness')
 plt.xticks(index+.2, ('IMC', 'Neutral', 'Financial', 'Positive'))
 #plt.legend()
 #plt.tight_layout()
-plt.show()'''
+plt.show()
